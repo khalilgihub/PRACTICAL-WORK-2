@@ -131,7 +131,7 @@
     hr {
       margin: 30px 0;
       border: none;
-      border-top: 2px solid black;
+      border-top: 3px solid #1565C0;
     }
   </style>
   <script>
@@ -167,6 +167,28 @@
         fileName.textContent = 'No file chosen';
       }
     }
+    function validateNotEmpty(id, message) {
+      const value = document.getElementById(id).value.trim();
+      if (value === "") {
+        alert(message);
+        document.getElementById(id).focus();
+      }
+    }
+    function validateEmail() {
+      const email = document.getElementById("email").value;
+      const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!pattern.test(email)) {
+        alert("Please enter a valid email address.");
+        document.getElementById("email").focus();
+      }
+    }
+    function validatePhone() {
+      const phone = document.getElementById("tel").value;
+      if (!/^\d{10,11}$/.test(phone)) {
+        alert("Please enter a valid phone number (10–11 digits).");
+        document.getElementById("tel").focus();
+      }
+    }
   </script>
 </head>
 <body>
@@ -189,13 +211,13 @@
       </div>
 
       <label for="student_name">Student Name</label>
-      <input type="text" id="student_name" name="student_name" placeholder="Full name" onchange="upperCase()" required>
+      <input type="text" id="student_name" name="student_name" placeholder="Full name" onchange="upperCase()" onblur="validateNotEmpty('student_name','Please enter student name')" required>
 
       <label for="father_name">Father's Name</label>
-      <input type="text" id="father_name" name="father_name" placeholder="Father's full name" onchange="upperCase()" required>
+      <input type="text" id="father_name" name="father_name" placeholder="Father's full name" onchange="upperCase()" onblur="validateNotEmpty('father_name','Please enter father name')" required>
 
       <label for="mother_name">Mother's Name</label>
-      <input type="text" id="mother_name" name="mother_name" placeholder="Mother's full name" onchange="upperCase()" required>
+      <input type="text" id="mother_name" name="mother_name" placeholder="Mother's full name" onchange="upperCase()" onblur="validateNotEmpty('mother_name','Please enter mother name')" required>
 
       <label>Gender</label>
       <div class="radio-group">
@@ -209,7 +231,7 @@
       <input type="date" id="dob" name="dob" required>
 
       <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" placeholder="email@xyz.com" onfocus="myFunction(this)" required>
+      <input type="email" id="email" name="email" placeholder="email@xyz.com" onfocus="myFunction(this)" onblur="validateEmail()" required>
 
       <label for="level">Level</label>
       <select name="level" id="level" required>
@@ -231,14 +253,14 @@
       </select>
 
       <label for="tel">Tel/Mobile</label>
-      <input type="text" id="tel" name="tel" required>
+      <input type="text" id="tel" name="tel" onblur="validatePhone()" required>
 
       <hr>
 
       <h1>ADDRESS</h1>
 
       <label for="state">State</label>
-      <select name="state" id="state" required>
+      <select name="state" id="state" onblur="validateNotEmpty('state','Please select a state')" required>
         <option value="">-- Select State --</option>
         <option value="johor">Johor</option>
         <option value="kedah">Kedah</option>
@@ -259,10 +281,10 @@
       </select>
 
       <label for="city">City</label>
-      <input type="text" id="city" name="city" required>
+      <input type="text" id="city" name="city" onblur="validateNotEmpty('city','Please enter city')" required>
 
       <label for="postcode">Postcode</label>
-      <input type="text" id="postcode" name="postcode" required>
+      <input type="text" id="postcode" name="postcode" onblur="validateNotEmpty('postcode','Please enter postcode')" required>
 
       <hr>
 
